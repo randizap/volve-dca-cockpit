@@ -47,7 +47,7 @@ export default {
       const b = root.querySelector("#pk-lat"); b.disabled = true; b.textContent = "mengukur…";
       const c = this._c, yr = Math.min(2016, Math.max(2011, +c.date.slice(0, 4)));
       const L = await latency(wfName(yr, 30), whatif.feats || featOf(c.w).rows[c.t]);
-      document.getElementById("pk-par").innerHTML += ` Latensi median ${nf(L.median, 2)} ms.`; b.disabled = false; b.textContent = "Ukur latensi";
+      document.getElementById("pk-par").innerHTML += ` Latensi median ${nf(L.median, 3)} ms per prakiraan.`; b.disabled = false; b.textContent = "Ukur latensi";
     };
   },
   update(c) {

@@ -19,10 +19,17 @@ export async function predictRatio(name, feats) {
   const out = await s.run({ input: new ort.Tensor("float32", Float32Array.from(feats), [1, feats.length]) });
   return out[s.outputNames[0]].data[0];
 }
-export async function latency(name, feats, n = 40) {
-  await predictRatio(name, feats);                    // pemanasan
+/** Latensi per prediksi. Pewaktu browser dibulatkan kasar (0,1–1 ms), jadi satu prediksi yang
+ *  sangat cepat bisa terbaca 0 ms. Karena itu tiap sampel = rata-rata satu blok `batch` prediksi
+ *  berturut-turut; median & p95 diambil dari `rounds` blok. */
+export async function latency(name, feats, rounds = 15, batch = 50) {
+  for (let i = 0; i < 5; i++) await predictRatio(name, feats);     // pemanasan
   const t = [];
-  for (let i = 0; i < n; i++) { const a = performance.now(); await predictRatio(name, feats); t.push(performance.now() - a); }
+  for (let r = 0; r < rounds; r++) {
+    const a = performance.now();
+    for (let i = 0; i < batch; i++) await predictRatio(name, feats);
+    t.push((performance.now() - a) / batch);
+  }
   t.sort((a, b) => a - b);
-  return { median: t[t.length >> 1], p95: t[Math.floor(t.length * 0.95)], n };
+  return { median: t[t.length >> 1], p95: t[Math.min(t.length - 1, Math.floor(t.length * 0.95))], n: rounds * batch };
 }

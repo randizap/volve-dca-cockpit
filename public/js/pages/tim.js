@@ -39,7 +39,7 @@ export default {
       <tr><td class="txt">Waktu latih dan validasi (CPU)</td><td>± ${D.meta.train_seconds ?? 17} detik</td></tr></tbody></table>`;
     root.querySelector("#ga-btn").onclick = async (ev) => {
       const b = ev.target; if (!ortReady()) return; b.disabled = true; b.textContent = "mengukur…";
-      try { const w = D.byName[D.meta.sample_case.well], F = (await import("../data.js")).featOf(w), L = await latency(finalName(30), F.rows[700]); root.querySelector("#ga-out").innerHTML = `Median <b>${nf(L.median, 2)} ms</b> per prakiraan (p95 ${nf(L.p95, 2)} ms).`; } catch (e) { root.querySelector("#ga-out").textContent = "Gagal: " + e.message; }
+      try { const w = D.byName[D.meta.sample_case.well], F = (await import("../data.js")).featOf(w), L = await latency(finalName(30), F.rows[700]); root.querySelector("#ga-out").innerHTML = `Median <b>${nf(L.median, 3)} ms</b> per prakiraan (p95 ${nf(L.p95, 3)} ms, ${L.n} prakiraan).`; } catch (e) { root.querySelector("#ga-out").textContent = "Gagal: " + e.message; }
       b.disabled = false; b.textContent = "Ukur latensi di perangkat ini";
     };
   },

@@ -2,7 +2,7 @@
 
 **Kasus 18 — Production Forecasting & Decline Curve Analysis** · Tugas Besar Terapan Machine Learning, UPN "Veteran" Jawa Timur
 **Industri:** Migas · **Pilar:** Optimasi Produksi & Perencanaan Investasi (OPEX/CAPEX)
-**Live demo:** _(isi URL Vercel)_ · **Repositori:** https://github.com/randizap/volve-dca-cockpit
+**Live demo:** https://kelompok3-volve.vercel.app · **Repositori:** https://github.com/randizap/volve-dca-cockpit
 
 ## Apa ini
 Dasbor keputusan untuk lapangan Volve. Memilih sumur dan **tanggal keputusan** lalu menjawab: berapa produksi 30/60/90 hari ke depan (dengan rentang P90–P10), berapa yang hilang karena downtime, apakah intervensi layak (NPV, harga impas, Monte Carlo), dan sumur mana yang menyimpang. Prakiraan dihitung **hindcast**: hanya memakai data sebelum tanggal keputusan. Model XGBoost berjalan **di browser** lewat ONNX Runtime Web (tanpa server).
