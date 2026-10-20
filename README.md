@@ -65,7 +65,7 @@ Equinor Volve Data Village — disediakan "apa adanya" untuk tujuan pendidikan/r
 ## Tim
 | Nama | NIM | Peran | LinkedIn |
 |---|---|---|---|
-| Raditya Andiza Putro (Ketua) | 23083010058 | Lead Technical Writer | _(isi)_ |
+| Raditya Andiza Putro (Ketua) | 23083010058 | Lead Technical Writer | https://www.linkedin.com/in/radityaandiza005 |
 | Rosyidatul Kamila | 23083010076 | Data & Pipeline Specialist | https://www.linkedin.com/in/rosyidatulkamila |
 | Pinka Nurdiana | 23083010057 | Model Architect | https://www.linkedin.com/in/pinka-nurdiana |
 | Vivian Subiono | 23083010065 | Frontend & UX Engineer | https://www.linkedin.com/in/vivian-subiono |
