@@ -1,0 +1,9 @@
+# Data mentah Volve tidak di-commit (lisensi Equinor; unduh sendiri dari Data Village)
+data/raw/*
+!data/raw/.gitkeep
+__pycache__/
+*.pyc
+.venv/
+.vercel/
+node_modules/
+.DS_Store

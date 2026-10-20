@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volve Production Cockpit</title>
+<meta name="description" content="Prakiraan produksi minyak (ML + Arps) untuk lapangan Volve dengan inferensi ONNX di browser, ketidakpastian P90–P10, downtime, dan kelayakan investasi.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%2314384f%27/%3E%3Cpath d=%27M7 9c3 9 8 13 18 14%27 stroke=%27%237fc4a0%27 stroke-width=%273%27 fill=%27none%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="sr" href="#main">Lewati ke konten</a>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#/ringkasan" aria-label="Volve DCA Cockpit — beranda">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1f4a66"/><path d="M7 9c3 9 8 13 18 14" stroke="#7fc4a0" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <span><span class="name" style="display:block">Volve Production Cockpit</span><span class="sub" style="display:block">Prakiraan produksi dan keputusan investasi</span></span>
+    </a>
+    <nav class="tabs" id="tabs" aria-label="Halaman"></nav>
+  </div>
+</header>
+<div class="ctl" role="region" aria-label="Kontrol global">
+  <div class="ctl-in">
+    <div class="fld"><label for="c-well">Sumur</label><select class="sel" id="c-well"></select></div>
+    <div class="fld datebox"><label for="c-date">Tanggal keputusan</label>
+      <button class="btn small" id="c-prev" aria-label="Mundur 30 hari">−30 hari</button>
+      <input type="range" id="c-date" min="0" max="0" value="0" aria-describedby="c-dl">
+      <button class="btn small" id="c-next" aria-label="Maju 30 hari">+30 hari</button>
+      <span class="datelbl" id="c-dl">—</span></div>
+    <div class="seg" id="c-unit" role="group" aria-label="Satuan"><button data-u="bbl" aria-pressed="true">bbl</button><button data-u="sm3" aria-pressed="false">Sm³</button></div>
+    <button class="btn" id="b-asum">Asumsi</button>
+    <button class="btn ghost" id="b-claims">Batas klaim</button>
+    <button class="btn primary" id="b-sample">Try Sample Data</button>
+  </div>
+</div>
+<main id="main" tabindex="-1"><p class="muted">Memuat data dan model…</p></main>
+<footer>Data: <a href="https://www.equinor.com/energy/volve-data-sharing" target="_blank" rel="noopener">Equinor Volve Data Village</a>. Seluruh perhitungan berjalan di browser.</footer>
+<div id="drawer-host"></div>
+<div id="tour"></div>
+<div id="brief" aria-hidden="true"></div>
+<script src="vendor/echarts/echarts.min.js"></script>
+<script src="vendor/ort/ort.wasm.min.js"></script>
+<script src="vendor/xlsx/xlsx.full.min.js"></script>
+<script type="module" src="js/app.js"></script>
+<script>
+  /* Penjaga: bila modul JS gagal dimuat (file hilang / salah folder / dibuka via file://), tampilkan penyebabnya alih-alih macet. */
+  (function () {
+    var main = document.getElementById("main"), gagal = [];
+    function tampil(msg) { main.innerHTML = '<div class="note bad"><b>Aplikasi gagal dimulai.</b> ' + msg + '</div>'; }
+    window.addEventListener("error", function (e) { var t = e.target; if (t && (t.src || t.href)) gagal.push(t.src || t.href); }, true);
+    setTimeout(function () {
+      if (!window.__cockpit && main.textContent.indexOf("Memuat") >= 0) {
+        if (location.protocol === "file:") return tampil("Halaman dibuka langsung sebagai file. Jalankan <code>python run.py</code> lalu buka alamat http://127.0.0.1:… yang ditampilkan.");
+        tampil("Kemungkinan ada file JavaScript yang hilang atau salah folder (satu file hilang membuat seluruh aplikasi berhenti). " + (gagal.length ? "Gagal dimuat: <code>" + gagal.join("</code>, <code>") + "</code>. " : "") + "Buka DevTools (F12) → tab Console untuk nama file yang 404, atau jalankan <code>python run.py</code> yang memeriksa semua file.");
+      }
+    }, 8000);
+  })();
+</script>
+</body>
+</html>

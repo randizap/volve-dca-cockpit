@@ -1,0 +1,9 @@
+# Hanya dibutuhkan untuk menjalankan src/build_data.py (pelatihan). Website statis tidak butuh Python.
+numpy>=1.26
+pandas>=2.1
+openpyxl>=3.1
+xgboost>=2.0
+onnx>=1.15
+onnxruntime>=1.17
+onnxmltools>=1.12
+skl2onnx>=1.16
